@@ -12,7 +12,12 @@ const createWheelModel = (sequelize, DataTypes) => {
       tableName: 'wheels',
     }
   )
-
+  Wheel.associate = (models) => {
+    Wheel.belongsTo(models.Category, {
+      as: 'category',
+      foreignKey: 'categoryId',
+    })
+  }
   return Wheel
 }
 

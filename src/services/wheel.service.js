@@ -1,7 +1,11 @@
 const { Wheel } = require('../database/models/index')
 
 const createWheel = async ({ name, categoryId }) => {
-  const wheel = await Wheel.create({ name: 'mayank', numberOfWheels: 2 })
+  const wheel = await Wheel.create({
+    name: 'mayank2',
+    numberOfWheels: 2,
+    categoryId: 1,
+  })
   return wheel
 }
 
