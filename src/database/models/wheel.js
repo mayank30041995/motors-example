@@ -1,9 +1,10 @@
-const createWriterModel = (sequelize, DataTypes) => {
+const createWheelModel = (sequelize, DataTypes) => {
   const Wheel = sequelize.define(
     'Wheel',
     {
       name: DataTypes.STRING,
       numberOfWheels: DataTypes.INTEGER,
+      categoryId: DataTypes.INTEGER,
     },
 
     {
@@ -15,4 +16,4 @@ const createWriterModel = (sequelize, DataTypes) => {
   return Wheel
 }
 
-module.exports = createWriterModel
+module.exports = createWheelModel

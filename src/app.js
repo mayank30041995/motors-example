@@ -1,6 +1,7 @@
 const express = require('express')
 
 const wheelRouter = require('../src/routes/wheel.router')
+const categoryRouter = require('../src/routes/category.router')
 const app = express()
 
 const db = require('../src/database/models/index')
@@ -21,5 +22,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/wheel', wheelRouter)
+app.use('/category', categoryRouter)
 
 module.exports = app

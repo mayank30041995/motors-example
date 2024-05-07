@@ -5,8 +5,8 @@ const listAllWheels = async (req, res) => {
 }
 
 const createWheel = async (req, res) => {
-  const book = await wheelService.createWheel(req.body)
-  res.status(201).json(book)
+  const wheel = await wheelService.createWheel(req.body)
+  res.status(201).json(wheel)
 }
 
 module.exports = {
