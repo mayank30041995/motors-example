@@ -1,0 +1,5 @@
+Init
+npx sequelize-cli init
+
+To create db
+npx sequelize db:create
