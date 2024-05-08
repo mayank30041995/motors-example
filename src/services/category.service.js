@@ -9,8 +9,16 @@ const createCategory = async ({ name, wheelId }) => {
   }
 }
 
-const listAllCategories = async () => {
-  const categories = await Category.findAll()
+const listAllCategories = async ({ wheelId }) => {
+  const filter = {}
+
+  if (wheelId) {
+    filter.wheelId = wheelId
+  }
+  const categories = await Category.findAll({
+    where: filter,
+  })
+
   return categories
 }
 
