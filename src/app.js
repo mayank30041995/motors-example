@@ -4,7 +4,7 @@ const wheelRouter = require('../src/routes/wheel.router')
 const categoryRouter = require('../src/routes/category.router')
 const app = express()
 
-const db = require('../src/database/models/index')
+const db = require('./database/models/index')
 app.use(express.json())
 
 // Note: Sync all models that are not

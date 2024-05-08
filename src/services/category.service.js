@@ -1,8 +1,12 @@
-const { Category } = require('../database/models/index')
+const { Category, Wheel } = require('../database/models/index')
 
-const createCategory = async ({ name }) => {
-  const category = await Category.create({ name: 'bikes' })
-  return category
+const createCategory = async ({ name, wheelId }) => {
+  try {
+    const category = await Category.create({ name, wheelId })
+    return category
+  } catch (err) {
+    return err
+  }
 }
 
 const listAllCategories = async () => {

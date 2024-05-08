@@ -2,9 +2,8 @@ const createWheelModel = (sequelize, DataTypes) => {
   const Wheel = sequelize.define(
     'Wheel',
     {
-      name: DataTypes.STRING,
-      numberOfWheels: DataTypes.INTEGER,
-      categoryId: DataTypes.INTEGER,
+      name: { type: DataTypes.STRING, allowNull: false },
+      numberOfWheels: { type: DataTypes.INTEGER, allowNull: false },
     },
 
     {
@@ -12,12 +11,11 @@ const createWheelModel = (sequelize, DataTypes) => {
       tableName: 'wheels',
     }
   )
+
   Wheel.associate = (models) => {
-    Wheel.belongsTo(models.Category, {
-      as: 'category',
-      foreignKey: 'categoryId',
-    })
+    Wheel.hasMany(models.Category)
   }
+
   return Wheel
 }
 
