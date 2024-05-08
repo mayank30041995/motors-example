@@ -5,7 +5,6 @@ const createWheelModel = (sequelize, DataTypes) => {
       name: { type: DataTypes.STRING, allowNull: false },
       numberOfWheels: { type: DataTypes.INTEGER, allowNull: false },
     },
-
     {
       underscored: true,
       tableName: 'wheels',

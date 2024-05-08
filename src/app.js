@@ -11,7 +11,7 @@ app.use(express.json())
 // Note: Sync all models that are not
 // already in the database
 
-// db.sequelize.sync()
+db.sequelize.sync()
 
 // Note: Force sync all models
 // It will drop the table first

@@ -3,3 +3,28 @@ npx sequelize-cli init
 
 To create db
 npx sequelize db:create
+
+Create models and migrations
+npx sequelize db:migrate
+
+Create seeders
+npx sequelize db:seed:all
+
+
+
+
+
+
+
+
+Only For Development Commands
+Create models and migrations
+npx sequelize model:generate --name User --attributes firstName:string,lastName:string,wheelId:integer --force
+npx sequelize model:generate --name Wheel --attributes name:string,numberOfWheels:integer --force
+npx sequelize model:generate --name Category --attributes name:string,wheelId:integer --force
+
+
+Create seeders
+npx sequelize seed:generate --name wheels
+npx sequelize seed:generate --name category
+npx sequelize seed:generate --name users
