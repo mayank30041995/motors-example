@@ -1,5 +1,6 @@
 const express = require('express')
 
+const userRouter = require('../src/routes/user.router')
 const wheelRouter = require('../src/routes/wheel.router')
 const categoryRouter = require('../src/routes/category.router')
 const app = express()
@@ -18,9 +19,10 @@ app.use(express.json())
 // db.sequelize.sync({ force: true })
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('ShowRoom vehicle!')
 })
 
+app.use('/user', userRouter)
 app.use('/wheel', wheelRouter)
 app.use('/category', categoryRouter)
 
