@@ -2,11 +2,10 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 // import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { StyledEngineProvider } from '@mui/material/styles'
+
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import Step from './Step'
 
 function NotFoundPage() {
   return <h1>404 - Page Not Found</h1>
@@ -22,20 +21,12 @@ const router = createBrowserRouter([
     // loader: <div>Loading...</div>,
     children: [
       {
-        path: 'team',
+        path: 'step2',
         element: <App />,
       },
-    ],
-  },
-  {
-    path: '/step',
-    element: <Step />,
-    // loader: <div>Loading...</div>,
-    children: [
       {
-        path: 'team',
-        element: <div>Frontend</div>,
-        // loader: <div>Loading...</div>,
+        path: 'step3',
+        element: <App />,
       },
     ],
   },

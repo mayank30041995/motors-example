@@ -20,6 +20,7 @@ code {
   display: flex;
   flex-direction: column;
   width: 50%;
+  margin-top: 45px !important;
   text-align: start;
   justify-content: center;
 }
@@ -29,7 +30,7 @@ code {
   color: red;
 }
 .mt-1 {
-  margin-top: 75px !important;
+  margin-top: 45px !important;
 }
 .mt-2 {
   height: 40px;
@@ -49,4 +50,9 @@ code {
   border: none;
   margin-top: 12px;
   cursor: pointer;
+}
+.container_date {
+  margin-top: 12px;
+  display: grid;
+  justify-content: center;
 }

@@ -1,7 +1,6 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import * as Yup from 'yup'
-import { TextField } from '@mui/material'
 
 const LoginSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -12,22 +11,21 @@ const LoginSchema = Yup.object().shape({
     .required('last Name is required'),
 })
 
-function FormFirstStep({ onSubmit }) {
+function FormFirstStep({ form, onSubmit }) {
   return (
     <Formik
       initialValues={{
-        firstName: '',
-        lastName: '',
+        firstName: form.firstName || '',
+        lastName: form.lastName || '',
       }}
       validationSchema={LoginSchema}
       onSubmit={onSubmit}
     >
       {(props) => (
         <div>
-          <h1>Step 1 (Form)</h1>
-
           <Form className="form">
             <div className="form-group">
+              <h3>Step 1 (Form)</h3>
               <label htmlFor="firstName" className="label">
                 First Name
               </label>

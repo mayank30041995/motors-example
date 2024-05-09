@@ -1,34 +1,47 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import './App.css'
-import { Link } from 'react-router-dom'
 import SimplePaper from './components/SimplePaper'
 import FormFirstStep from './components/FormFirstStep'
+import { useLocation, useNavigate } from 'react-router-dom'
 import RadioBtns from './components/RadioBtns'
 import DateRanges from './components/DateRanges'
 
 function App() {
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { pathname } = location
+  const [form, setForm] = useState({})
+  const [wheel, setWheel] = useState()
+
   const onSubmit = (values, { setSubmitting }) => {
-    console.log('setSubmitting', values)
-    // Simulating asynchronous operation, like an API call
     setTimeout(() => {
-      alert('Form is validated! Submitting the form...')
       setSubmitting(false)
-    }, 1000)
+      setForm(values)
+      navigate('/step2')
+    }, 500)
   }
+  const onSubmitForm2 = (values) => {
+    setWheel(values)
+    navigate('/step3')
+  }
+
+  function renderSwitch(param) {
+    switch (param) {
+      case '/':
+        return <FormFirstStep {...{ form, onSubmit }} />
+      case '/step2':
+        return <RadioBtns {...{ onSubmitForm2 }} />
+      case '/step3':
+        return <DateRanges />
+      default:
+        return <FormFirstStep {...{ form, onSubmit }} />
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <SimplePaper>
-          {/* <FormFirstStep {...{ onSubmit }} /> */}
-          <RadioBtns />
-          {/* <DateRanges /> */}
-
-          {/* <Link to="/team">
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-          </Link> */}
-        </SimplePaper>
+        <SimplePaper>{renderSwitch(pathname)}</SimplePaper>
       </header>
     </div>
   )
