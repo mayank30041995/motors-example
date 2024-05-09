@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import { Link } from 'react-router-dom'
+import SimplePaper from './components/SimplePaper'
+import FormFirstStep from './components/FormFirstStep'
+import RadioBtns from './components/RadioBtns'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <SimplePaper>
+          {/* <FormFirstStep /> */}
+          <RadioBtns />
+
+          {/* <Link to="/team">
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+          </Link> */}
+        </SimplePaper>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
