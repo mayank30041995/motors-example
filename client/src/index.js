@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 // import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { StyledEngineProvider } from '@mui/material/styles'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
@@ -22,13 +23,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'team',
-        element: <Step />,
+        element: <App />,
       },
     ],
   },
   {
-    path: '/test2',
-    element: <div>Frontend</div>,
+    path: '/step',
+    element: <Step />,
     // loader: <div>Loading...</div>,
     children: [
       {

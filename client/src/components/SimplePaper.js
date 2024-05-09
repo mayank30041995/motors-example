@@ -10,8 +10,8 @@ export default function SimplePaper({ children }) {
         flexWrap: 'wrap',
         '& > :not(style)': {
           m: 1,
-          width: 700,
-          height: 450,
+          width: 750,
+          height: 500,
         },
       }}
     >

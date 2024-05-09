@@ -1,5 +1,5 @@
 const express = require('express')
-
+const cors = require('cors')
 const userRouter = require('../src/routes/user.router')
 const wheelRouter = require('../src/routes/wheel.router')
 const categoryRouter = require('../src/routes/category.router')
@@ -11,6 +11,7 @@ app.use(express.json())
 // Note: Sync all models that are not
 // already in the database
 
+app.use(cors())
 db.sequelize.sync()
 
 // Note: Force sync all models

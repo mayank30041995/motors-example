@@ -2,7 +2,7 @@ const createCategoryModel = (sequelize, DataTypes) => {
   const Category = sequelize.define(
     'Category',
     {
-      name: { type: DataTypes.STRING, allowNull: false },
+      name: { type: DataTypes.STRING, defaultValue: 'sports' },
       wheelId: { type: DataTypes.INTEGER, allowNull: false },
     },
     {

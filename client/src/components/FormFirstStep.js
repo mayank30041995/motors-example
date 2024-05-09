@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import * as Yup from 'yup'
 import { TextField } from '@mui/material'
@@ -12,7 +12,7 @@ const LoginSchema = Yup.object().shape({
     .required('last Name is required'),
 })
 
-function FormFirstStep() {
+function FormFirstStep({ onSubmit }) {
   return (
     <Formik
       initialValues={{
@@ -20,18 +20,12 @@ function FormFirstStep() {
         lastName: '',
       }}
       validationSchema={LoginSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log('setSubmitting', values)
-        // Simulating asynchronous operation, like an API call
-        setTimeout(() => {
-          alert('Form is validated! Submitting the form...')
-          setSubmitting(false)
-        }, 1000)
-      }}
+      onSubmit={onSubmit}
     >
       {(props) => (
         <div>
           <h1>Step 1 (Form)</h1>
+
           <Form className="form">
             <div className="form-group">
               <label htmlFor="firstName" className="label">
