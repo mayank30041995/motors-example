@@ -11,9 +11,9 @@ import { socketURL } from '../functions/url'
 import { Skeleton } from '@mui/material'
 import axios from 'axios'
 
-export default function RadioBtns({ onSubmitForm2 }) {
+export default function RadioBtns({ wheelId, onSubmitForm2 }) {
   const [vehicle, setVehicle] = React.useState([])
-  const [id, setId] = React.useState([])
+  const [id, setId] = React.useState()
   const [loading, setLoading] = React.useState(false)
 
   const { data, error } = useFetch(`${socketURL()}/wheel`)
@@ -66,7 +66,7 @@ export default function RadioBtns({ onSubmitForm2 }) {
                 {wheels.map((wheel) => (
                   <FormControlLabel
                     key={wheel.id}
-                    value={`${wheel.id}`}
+                    value={wheel.id}
                     control={<Radio />}
                     label={`${wheel.numberOfWheels} wheels`}
                   />
@@ -106,7 +106,10 @@ export default function RadioBtns({ onSubmitForm2 }) {
             type="submit"
             className="btn btn-primary btn-block mt-4"
             // disabled={props.isSubmitting}
-            onClick={() => onSubmitForm2(id)}
+            onClick={(e) => {
+              e.stopPropagation()
+              onSubmitForm2(id)
+            }}
           >
             Next
           </button>

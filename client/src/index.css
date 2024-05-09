@@ -51,8 +51,18 @@ code {
   margin-top: 12px;
   cursor: pointer;
 }
+.btn2 {
+  position: relative;
+  background: darkgrey;
+  padding: 12px;
+  color: #fff;
+  border: none;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
 .container_date {
   margin-top: 12px;
-  display: grid;
+      display: grid;
   justify-content: center;
 }

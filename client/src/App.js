@@ -5,6 +5,8 @@ import FormFirstStep from './components/FormFirstStep'
 import { useLocation, useNavigate } from 'react-router-dom'
 import RadioBtns from './components/RadioBtns'
 import DateRanges from './components/DateRanges'
+import axios from 'axios'
+import { socketURL } from './functions/url'
 
 function App() {
   const navigate = useNavigate()
@@ -25,14 +27,33 @@ function App() {
     navigate('/step3')
   }
 
+  const onSubmitForm3 = (dateRange) => {
+    const url = `${socketURL()}/user`
+    if (wheel && form) {
+      const { firstName, lastName } = form
+      console.log('Submit Booking', dateRange, wheel, firstName, lastName)
+
+      axios
+        .post(url, {
+          firstName: firstName,
+          lastName: lastName,
+          wheelId: wheel,
+        })
+        .then((res) => {})
+        .catch((err) => {
+          console.error(err.message)
+        })
+    }
+  }
+
   function renderSwitch(param) {
     switch (param) {
       case '/':
         return <FormFirstStep {...{ form, onSubmit }} />
       case '/step2':
-        return <RadioBtns {...{ onSubmitForm2 }} />
+        return <RadioBtns {...{ wheelId: wheel, onSubmitForm2 }} />
       case '/step3':
-        return <DateRanges />
+        return <DateRanges {...{ onSubmitForm3 }} />
       default:
         return <FormFirstStep {...{ form, onSubmit }} />
     }
