@@ -32,7 +32,7 @@ const DateRanges = ({ onSubmitForm3 }) => {
           setLoading(false)
         })
     }
-  }, [open, booking])
+  }, [open, booking.length])
 
   return (
     <div className="container_date">
