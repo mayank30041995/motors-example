@@ -7,6 +7,10 @@ import RadioBtns from './components/RadioBtns'
 import DateRanges from './components/DateRanges'
 import axios from 'axios'
 import { socketURL } from './functions/url'
+import RefComponent from './components/RefComponent'
+import InfiniteList from './components/InfiniteList'
+import Dashboard from './components/Dashboard'
+import RefComponent2 from './components/RefComponent2'
 
 function App() {
   const navigate = useNavigate()
@@ -63,6 +67,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <SimplePaper>{renderSwitch(pathname)}</SimplePaper>
+        {/* <RefComponent /> */}
+        <RefComponent2 />
+        {/* <InfiniteList /> */}
+        {/* <Dashboard /> */}
       </header>
     </div>
   )
