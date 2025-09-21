@@ -45,7 +45,7 @@ export default function SimplePaper({ children }) {
         '& > :not(style)': {
           m: 1,
           width: 750,
-          height: 500,
+          height: 900,
         },
       }}
     >
