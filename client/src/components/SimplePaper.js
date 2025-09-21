@@ -1,41 +1,60 @@
-import * as React from 'react'
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
-import { useState } from 'react'
 import ChildComponent from './ChildComponent'
-import { useMemo } from 'react'
-import { useCallback } from 'react'
-import Dashboard from './Dashboard'
+import { TextField, Typography } from '@mui/material'
 
 export default function SimplePaper({ children }) {
   const [count, setCount] = useState(0)
-  const [number, setNumber] = useState(0)
+  const [number, setNumber] = useState('') // immediate input value
+  const [debouncedNumber, setDebouncedNumber] = useState(null) // debounced value
   const [data, setData] = useState('hello')
   const [theme, setTheme] = useState('light')
 
+  const debounceRef = useRef(null)
+
+  // Expensive calculation runs only on debouncedNumber
   const expensiveCalculation = (num) => {
-    console.log('Calculating...')
+    console.log('Calculating Memo Results...')
+    let result = num
     for (let i = 0; i < 100000000; i++) {
-      num += 1
+      result += 1
     }
-    return num
+    return result
   }
 
   const memoizedValue = useMemo(() => {
-    if (number) {
-      return expensiveCalculation(number)
+    if (debouncedNumber !== null) {
+      return expensiveCalculation(debouncedNumber)
     }
-  }, [number])
+    return 0
+  }, [debouncedNumber])
 
-  const handleClick = () => {
-    console.log('Button Clicked')
-    setCount(count + 1)
-  }
-
-  const memorizedHandleClick = useCallback(() => {
-    console.log('Button Clicked Memorized')
+  // Callback click handler
+  const callbackHandleClick = useCallback(() => {
+    console.log('Button Clicked Callback')
     setCount((prevCount) => prevCount + 1)
   }, [])
+
+  // Lazy-load lodash debounce
+  useEffect(() => {
+    import('lodash/debounce').then(({ default: debounce }) => {
+      debounceRef.current = debounce((value) => {
+        setDebouncedNumber(value)
+      }, 500) // 500ms delay
+    })
+  }, [])
+
+  // Input handler
+  const handleChange = (e) => {
+    const value = e.target.value
+    setNumber(value) // update input immediately
+
+    if (debounceRef.current) {
+      const parsed = parseInt(value)
+      debounceRef.current(!isNaN(parsed) ? parsed : 0)
+    }
+  }
 
   return (
     <Box
@@ -45,12 +64,13 @@ export default function SimplePaper({ children }) {
         '& > :not(style)': {
           m: 1,
           width: 750,
-          height: 900,
+          height: 1200,
         },
       }}
     >
-      <Paper elevation={12}>
+      <Paper elevation={12} sx={{ p: 3 }}>
         <h1>memo, useMemo, useCallback & useRef</h1>
+
         <button
           onClick={() => {
             if (count < 10) {
@@ -63,22 +83,71 @@ export default function SimplePaper({ children }) {
           Count: {count}
         </button>
 
-        <input
+        <Typography variant="h5" gutterBottom>
+          Smooth Input with Debounce & Lazy Import
+        </Typography>
+
+        <TextField
+          label="Enter Number"
           type="number"
           value={number}
-          onChange={(e) => setNumber(parseInt(e.target.value))}
+          onChange={handleChange}
+          fullWidth
         />
+
+        <p>Debounced Value: {debouncedNumber ?? 'Waiting for Typing...'}</p>
+
         <br />
         <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
           Toggle Theme
         </button>
-        <p>{count}</p>
+
+        <p>Count: {count}</p>
         <div>Result: {memoizedValue}</div>
         <div>Theme: {theme}</div>
-        <ChildComponent data={data} onClick={memorizedHandleClick} />
-        {/* <Dashboard /> */}
+
+        <ChildComponent data={data} onClick={callbackHandleClick} />
+
         {children}
       </Paper>
     </Box>
   )
 }
+
+/*
+
+1️⃣ Smooth typing
+
+The raw input state (number) updates immediately, so the user sees their typing instantly.
+
+The expensive calculation runs only on the debounced value (debouncedNumber) → prevents blocking the main thread.
+
+2️⃣ Efficient computation
+
+useMemo ensures the heavy calculation is memoized per debounced number.
+
+No unnecessary recalculations while typing fast.
+
+3️⃣ Optimized bundle
+
+lodash/debounce is lazy-loaded dynamically, so your main bundle stays small.
+
+The browser only downloads debounce when the component mounts → saves initial load time.
+
+4️⃣ Modern React best practices
+
+Uses useRef for the debounce function to avoid recreating it on every render.
+
+useCallback is used for click handlers to prevent unnecessary re-renders of child components.
+
+⚡ Optional further optimizations
+
+Web Worker for heavy calculations
+
+For extremely heavy loops, you can offload the calculation to a Web Worker so even debounced runs don’t block the UI.
+
+React.lazy for the component itself
+
+If SimplePaper is not immediately visible, you can lazy-load it with React.lazy + Suspense.
+
+*/
